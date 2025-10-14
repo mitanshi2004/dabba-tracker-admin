@@ -18,7 +18,7 @@ export async function GET() {
     if (totalToday === 0) {
       aiMessage = "No deliveries yet today, but a great day ahead! 🌞";
     } else if (totalToday < 5) {
-      aiMessage = `Hey Admin! Only ${totalToday} deliveries today — keep going! 🚚✨`;
+      aiMessage = `Hey Admin! Only few deliveries today keep going! 🚚✨`;
     } else if (totalToday < 10) {
       aiMessage = `Great job! ${totalToday} deliveries completed today! 🎉`;
     } else {
