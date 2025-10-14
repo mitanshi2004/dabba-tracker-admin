@@ -1,6 +1,6 @@
 # 📦 Dabba Tracker
 
-**Dabba Tracker** is a MERN-based delivery management system designed to track and manage tiffin (dabba) deliveries efficiently.  
+**Dabba Tracker** is a Next.js based delivery management system designed to track and manage tiffin (dabba) deliveries efficiently.  
 It includes separate portals for **Admins** and **Agents**, allowing admins to monitor deliveries and manage agents/customers seamlessly.
 
 ---
