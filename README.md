@@ -19,74 +19,69 @@ It includes separate portals for **Admins** and **Agents**, allowing admins to m
 - 🧾 MongoDB Integration using Mongoose Schemas
 
 ---
-
 ## 🧩 Folder Structure
 
-app/
+app →
 │
-├── admin/ # Admin Dashboard
-│ ├── agents/ # Manage Agents
-│ ├── customer/ # Manage Customers
+├── admin/ → # Admin Dashboard
+│ ├── agents/ → # Manage Agents
+│ ├── customer/ → # Manage Customers
 │ └── page.jsx # Admin Dashboard Page
 │
-├── agent/ # Agent Login & Signup Pages
-│ ├── login/
+├── agent/ → # Agent Login & Signup Pages
+│ ├── login/ →
 │ │ └── page.jsx
-│ └── signup/
+│ └── signup/ →
 │ └── page.jsx
 │
-├── api/ # API Routes (Next.js App Router)
-│ ├── agentauth/ # Authentication for Agents
-│ │ ├── login/
+├── api/ → # API Routes (Next.js App Router)
+│ ├── agentauth/ → # Authentication for Agents
+│ │ ├── login/ →
 │ │ │ └── route.js
-│ │ └── signup/
+│ │ └── signup/ →
 │ │ └── route.js
 │ │
-│ ├── agents/ # Agent CRUD API
+│ ├── agents/ → # Agent CRUD API
 │ │ ├── [id]/route.js
 │ │ └── route.js
 │ │
-│ ├── customer/ # Customer CRUD API
+│ ├── customer/ → # Customer CRUD API
 │ │ ├── [id]/route.js
 │ │ └── route.js
 │ │
-│ ├── deliveries/ # Delivery CRUD API
+│ ├── deliveries/ → # Delivery CRUD API
 │ │ └── route.js
 │ │
-│ └── insights/ # Dashboard Data API
+│ └── insights/ → # Dashboard Data API
 │ └── route.js
 │
-├── deliveries/
+├── deliveries/ →
 │ └── AddDeliveryForm.jsx # Component for adding new deliveries
 │
-├── login/
+├── login/ →
 │ └── page.jsx # Admin Login Page
 │
-├── signup/
+├── signup/ →
 │ └── page.jsx # Admin Signup Page
 │
-├── lib/ # MongoDB Connection Setup
+├── lib/ → # MongoDB Connection Setup
 │
-├── models/ # Database Models
+├── models/ → # Database Models
 │ ├── agent.js
 │ ├── customer.js
 │ └── delivery.js
 │
-├── public/ # Static Assets
+├── public/ → # Static Assets
 │
 ├── globals.css # Global Styles
 ├── layout.js # Root Layout for Next.js App
 └── next.config.mjs # Next.js Configuration
 
-yaml
-Copy code
-
----
 
 ## 🧠 Models Overview
 
 ### 🧑‍💼 Agent Model
-```js
+
 {
   name: String,
   contact: String,  // 10 digits only
@@ -94,8 +89,6 @@ Copy code
   totalCustomers: Number (default: 0)
 }
 👥 Customer Model
-js
-Copy code
 {
   name: String,
   contact: String,  // 10 digits only
@@ -103,8 +96,7 @@ Copy code
   agent: ObjectId (ref: "Agent")
 }
 🚚 Delivery Model
-js
-Copy code
+
 {
   orderId: String,
   customer: ObjectId (ref: "Customer"),
@@ -118,7 +110,7 @@ Copy code
 ⚙️ Tech Stack
 Frontend: Next.js 14 (App Router)
 
-Backend: Node.js + Express (via Next.js API routes)
+Backend: Node.js (via Next.js API routes)
 
 Database: MongoDB with Mongoose
 
