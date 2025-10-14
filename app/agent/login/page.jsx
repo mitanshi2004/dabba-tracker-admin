@@ -1,10 +1,8 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation"; // ← needed for redirect
 
 export default function LoginPage() {
   const [form, setForm] = useState({ email: "", password: "" });
-  const router = useRouter(); // ← initialize router
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -22,10 +20,7 @@ export default function LoginPage() {
     const data = await res.json();
     alert(data.message);
 
-    if (res.ok) {
-      // ✅ Successful login → redirect to /admin
-      router.push("/admin");
-    }
+    
   };
 
   return (

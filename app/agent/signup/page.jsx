@@ -1,10 +1,8 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation"; // ← needed for redirect
 
 export default function SignupPage() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", password: "" });
-  const router = useRouter(); // ← initialize router
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -13,7 +11,7 @@ export default function SignupPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("/api/signup", {
+    const res = await fetch("/api/agentauth/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
@@ -21,11 +19,7 @@ export default function SignupPage() {
 
     const data = await res.json();
     alert(data.message);
-
-    if (res.ok) {
-      // ✅ Successful signup → redirect to /admin
-      router.push("/admin");
-    }
+    
   };
 
   return (

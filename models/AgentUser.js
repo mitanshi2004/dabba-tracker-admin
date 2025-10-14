@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema(
+const agentuserSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -8,13 +8,13 @@ const userSchema = new mongoose.Schema(
       trim: true,
     },
     email: {
-      type: String,
+      type: String,  
       required: [true, "Email is required"],
       unique: true,
       lowercase: true,
       match: [
-        /^[a-zA-Z0-9._%+-]+@admin\.com$/,
-        "Only organization emails allowed (must end with @admin.com)",
+        /^[a-zA-Z0-9._%+-]+@agent\.com$/,
+        "Only organization emails allowed (must end with @agent.com)",
       ],
     },
     phone: {
@@ -31,6 +31,7 @@ const userSchema = new mongoose.Schema(
   { timestamps: true } 
 );
 
-const User = mongoose.models.User || mongoose.model("User", userSchema);
+const AgentUser =mongoose.models.AgentUser || mongoose.model("AgentUser", agentuserSchema);
 
-export default User
+
+export default AgentUser;
