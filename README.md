@@ -1,36 +1,146 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 📦 Dabba Tracker
 
-## Getting Started
+**Dabba Tracker** is a MERN-based delivery management system designed to track and manage tiffin (dabba) deliveries efficiently.  
+It includes separate portals for **Admins** and **Agents**, allowing admins to monitor deliveries and manage agents/customers seamlessly.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- 🔐 Separate Login & Signup for:
+  - **Admin** (`@admin.com`)
+  - **Agent** (`@agent.com`)
+- 📊 **Admin Dashboard** with:
+  - Agent vs Customer Statistics (Pie Chart)
+  - Recent Deliveries Overview
+- 👨‍💼 **Agent Management** (Add, Edit, Delete Agents)
+- 👥 **Customer Management** (Linked with Agents)
+- 🚚 **Delivery Management** (Track Delivery Status: Pending, Delivered, Cancelled)
+- 🧾 MongoDB Integration using Mongoose Schemas
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🧩 Folder Structure
 
-## Learn More
+app/
+│
+├── admin/ # Admin Dashboard
+│ ├── agents/ # Manage Agents
+│ ├── customer/ # Manage Customers
+│ └── page.jsx # Admin Dashboard Page
+│
+├── agent/ # Agent Login & Signup Pages
+│ ├── login/
+│ │ └── page.jsx
+│ └── signup/
+│ └── page.jsx
+│
+├── api/ # API Routes (Next.js App Router)
+│ ├── agentauth/ # Authentication for Agents
+│ │ ├── login/
+│ │ │ └── route.js
+│ │ └── signup/
+│ │ └── route.js
+│ │
+│ ├── agents/ # Agent CRUD API
+│ │ ├── [id]/route.js
+│ │ └── route.js
+│ │
+│ ├── customer/ # Customer CRUD API
+│ │ ├── [id]/route.js
+│ │ └── route.js
+│ │
+│ ├── deliveries/ # Delivery CRUD API
+│ │ └── route.js
+│ │
+│ └── insights/ # Dashboard Data API
+│ └── route.js
+│
+├── deliveries/
+│ └── AddDeliveryForm.jsx # Component for adding new deliveries
+│
+├── login/
+│ └── page.jsx # Admin Login Page
+│
+├── signup/
+│ └── page.jsx # Admin Signup Page
+│
+├── lib/ # MongoDB Connection Setup
+│
+├── models/ # Database Models
+│ ├── agent.js
+│ ├── customer.js
+│ └── delivery.js
+│
+├── public/ # Static Assets
+│
+├── globals.css # Global Styles
+├── layout.js # Root Layout for Next.js App
+└── next.config.mjs # Next.js Configuration
 
-To learn more about Next.js, take a look at the following resources:
+yaml
+Copy code
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🧠 Models Overview
 
-## Deploy on Vercel
+### 🧑‍💼 Agent Model
+```js
+{
+  name: String,
+  contact: String,  // 10 digits only
+  area: String,
+  totalCustomers: Number (default: 0)
+}
+👥 Customer Model
+js
+Copy code
+{
+  name: String,
+  contact: String,  // 10 digits only
+  area: String,
+  agent: ObjectId (ref: "Agent")
+}
+🚚 Delivery Model
+js
+Copy code
+{
+  orderId: String,
+  customer: ObjectId (ref: "Customer"),
+  agent: ObjectId (ref: "Agent"),
+  status: ["pending", "delivered", "cancelled"],
+  pickupTime: Date,
+  deliveryTime: Date,
+  distanceKm: Number,
+  timestamps: true
+}
+⚙️ Tech Stack
+Frontend: Next.js 14 (App Router)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Backend: Node.js + Express (via Next.js API routes)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Database: MongoDB with Mongoose
+
+Styling: Tailwind CSS
+
+Charting: Recharts (for Admin Dashboard Analytics)
+
+🧭 How It Works
+Admin Login
+
+Admin logs in with @admin.com domain.
+
+Can view dashboard, agents, customers, and recent deliveries.
+
+Agent Login
+
+Agent logs in with @agent.com domain.
+
+Manages deliveries and updates delivery status.
+
+Delivery Tracking
+
+Deliveries are linked to both Agent and Customer.
+
+Admin can monitor delivery progress and completion.
