@@ -15,46 +15,35 @@ export async function POST(req) {
 
     const { name, email, phone, password } = body;
 
-    // Field validation
     if (!name || !email || !phone || !password) {
-      return NextResponse.json(
-        { message: "All fields required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ message: "All fields required" }, { status: 400 });
     }
 
-    // Check existing user
-    const existingUser = await AgentUser.findOne({ email });
+    const normalizedEmail = email.toLowerCase().trim();
+    
+    if (!normalizedEmail.endsWith("@agent.com")) {
+      return NextResponse.json({ message: "Only @agent.com emails allowed" }, { status: 400 });
+    }
+
+    const existingUser = await AgentUser.findOne({ email: normalizedEmail });
     if (existingUser) {
-      return NextResponse.json(
-        { message: "Agent-User already exists" },
-        { status: 400 }
-      );
+      return NextResponse.json({ message: "Agent-User already exists" }, { status: 400 });
     }
 
-    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
     console.log("Password hashed");
 
-    // Create user
     const user = await AgentUser.create({
       name,
-      email,
+      email: normalizedEmail,
       phone,
       password: hashedPassword,
     });
     console.log("User created:", user._id);
 
-    return NextResponse.json(
-      { message: "Signup successful" },
-      { status: 201 }
-    );
+    return NextResponse.json({ message: "Signup successful" }, { status: 201 });
   } catch (err) {
     console.error("Signup API error:", err.message, err.stack);
-
-    return NextResponse.json(
-      { message: err.message || "Server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ message: err.message || "Server error" }, { status: 500 });
   }
 }
