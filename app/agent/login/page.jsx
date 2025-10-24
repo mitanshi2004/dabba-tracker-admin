@@ -1,7 +1,9 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+  const router = useRouter();
   const [form, setForm] = useState({ email: "", password: "" });
 
   const handleChange = (e) => {
@@ -11,16 +13,25 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("/api/agentauth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
+    try {
+      const res = await fetch("/api/agentauth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
 
-    const data = await res.json();
-    alert(data.message);
+      if (!res.ok) {
+        throw new Error("Invalid credentials");
+      }
 
-    
+      const data = await res.json();
+      alert(data.message);
+
+      router.push("/agent");
+    } catch (err) {
+      console.error("Login error:", err);
+      alert("Login failed. Please check your credentials.");
+    }
   };
 
   return (

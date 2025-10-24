@@ -23,7 +23,6 @@ export default function SignupPage() {
     alert(data.message);
 
     if (res.ok) {
-      // ✅ Successful signup → redirect to /admin
       router.push("/admin");
     }
   };
